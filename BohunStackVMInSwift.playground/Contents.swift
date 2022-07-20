@@ -6,14 +6,14 @@
  
  Bohun's implementation is in C++. As we follow along in the videos, we translate his code into Swift.
  
- At present the implementation our implementation is only of the first video in his playlist.
+ At present our implementation is only of the first video in Bohun's playlist.
  
- Alternatively, we could begin with [this website](https://www.jmeiners.com/lc3-vm/) by Justin Meiners. It is in C.
- 
- */
+ Alternatively, we could begin with [this website](https://www.jmeiners.com/lc3-vm/) by Justin Meiners and Ryan Pendleton.
+ It is in C. It has already been [ported to Swift by Billydubb](https://github.com/Billydubb/LC3VM), but I would not want
+ to look at his port until after I have done my own.
 
-/*
- * Instruction format
+ ## The instruction format
+
  * header: 2 bits
  * body: 30 bits
  * header format:
@@ -21,9 +21,14 @@
  * 1 => primitive instruction
  * 2 => negative integer
  * 3 => undefined
+
  */
 
 typealias i32 = UInt32
+// Note: I am torn as to whether to make i32 UInt32 or Int32. Swift's
+// type safety does not let you freely cast between them. For example,
+// Assigning 0xc0000000 to an Int32 variable is an overflow. Since
+// we are making lots of use of such constants, I went with UInt32.
 
 class StackVM {
     var pc: i32 = 100  // program counter
